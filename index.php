@@ -1,3 +1,4 @@
+<?php declare(strict_types=1); // Nothing changes.?> 
 <!DOTYPE html>
 <html>
     <head>
@@ -27,7 +28,6 @@
             static $z = 1;
             echo "$z<br>";
             $z++;
-            
         }
         AnotherTest();
         AnotherTest();
@@ -217,6 +217,9 @@
         <?php
         $t = date("H");
 
+        echo date("H");
+
+        br();
         if ($t > "20") {
             echo "Have a good night!";
         }
@@ -224,17 +227,19 @@
         br();
 
         if ($t < "20") {
-            echo "HAve a good day!";
+            echo "Have a good day!";
         } else {
             echo "Have a good night!";
         }
 
         br();
-
+    
         if ($t < "10") {
             echo "Have a good morning!";
-        } elseif ($t < "20") {
+        } elseif ($t < "18") {
             echo "Have a good day!";
+        } elseif ($t < "21") {
+            echo "Have a good evening!";
         } else {
             echo "Have a good night!";
         }
@@ -243,7 +248,8 @@
         <h2>PHP Switch</h2>
         <?php
         
-        $favcolor = "red";
+        $colorlist = array("red", "blue", "green", "yellow");
+        $favcolor = $colorlist[rand(0, 3)];
 
         switch ($favcolor) {
             case "red":
@@ -256,8 +262,135 @@
                 echo "Your favorite color is green!";
                 break;
             default:
-                echo "You don't have any favorite colors...";
+                echo "You don't have any favorite color...";
         }
+        ?>
+
+        <h2>PHP Loops<h3>
+        <?php
+        echo "<h3>While loop</h3>";
+        
+        $numx = 1;
+        while($numx <= 5) {
+            echo "The number is: $numx <br>";
+            $numx++;
+        }
+
+        $numy = 0;
+        while($numy <= 100) {
+            echo "The number is: $numy <br>";
+            $numy+=10;
+        }
+
+        echo "<h3>Do..While Loop</h3>";
+        $numx = 6;
+        // This will execute one time as a minimum before checking the condition.
+        do {
+            echo "The number is: $numx <br>";
+            $numx++;
+        } while ($numx <= 5);
+
+        echo "<h3>For Loop</h3>";
+        for ($x = 0; $x <= 10; $x++) {
+            echo "The number is: $x <br>";
+        }
+
+        for ($x = 0; $x <= 100; $x+=10) {
+            echo "The number is: $x <br>";
+        }
+        
+        echo "<h3>Foreach Loop</h3>";
+        $colors = array("red", "green", "blue");
+        foreach ($colors as $value) {
+            echo "$value <br>";
+        }
+        
+        $age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+        foreach($age as $name => $age) {
+            echo "$name = $age<br>";
+        }
+
+        echo "<h3>Break and Continue</h3>";
+        for($x = 0; $x < 10; $x++) {
+            if ($x == 4) {
+                break;
+            }
+            echo "The number is: $x <br>";
+        }
+
+        for($x = 0; $x < 10; $x++) {
+            if($x == 4) {
+                continue;
+            }
+            echo "The number is: $x <br>";
+        }
+        ?>
+
+        <h2>Functions</h3>
+        <?php
+        function writeMsg() {
+            echo "Hello world!";
+        }
+
+        writeMsg(); // call the function.
+        br();
+
+        function familyName($fname) {
+            echo "$fname Refsnes.<br>";
+        }
+        familyName("Vasya");
+        familyName("Petya");
+        familyName("Kolya");
+
+        function familyList($fname, $year) {
+            echo "$fname Refsnes. Born in $year.<br>";
+        }
+        familyList("Vasya", "1990");
+        familyList("Petya", "1991");
+        familyList("Kolya", "1992");
+
+        function addNumbers(int $a, int $b) {
+            return $a + $b;
+        }
+        // echo addNumbers(5, "5 days"); // this throws an error
+
+        function setHeight(int $minheight=50) {
+            if ($minheight < 50) {
+                echo "Height is $minheight. The minimal Height must be equal of 50.<br>";
+                // break; // Doesn't work here becouse in doesn't switch or while statement.
+            } else {
+            echo "The height is: $minheight.<br>";
+            }
+        }
+        setHeight(500);
+        setHeight(50);
+        // setHeight(loh); // this throws an error
+        setHeight(20);
+        
+        function sum(int $x, int $y) {
+            $z = $x + $y;
+            return $z;
+        }
+        echo "5 + 10 = " . sum(5, 6) . "<br>";
+
+        function addFloats(float $x, float $y) : float{
+            return $x + $y;
+        }
+        echo addFloats(2.25, 2.55); br();
+
+        function addInt(float $x, float $y) : int{
+            return (int)($x + $y); // Make an int from floats.
+        }
+        echo addInt(5.78, 7.9879879); br();
+
+        function add_five(&$value){
+            $value += 5;
+            // return $value;
+        }
+        // echo add_five($value); // This isn't working.
+        $num = 2;
+        add_five($num);
+        echo $num;
         ?>
     </body>
 </html>
